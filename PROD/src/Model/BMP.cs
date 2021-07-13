@@ -11,6 +11,11 @@ namespace Model
             return bmp.GetPixel(x, y);
         }
 
+        public void SetPixel(int x, int y)
+        {
+            bmp.SetPixel(x, y, Color.Red);
+        }
+
         public Bitmap Get()
         {
             return bmp;

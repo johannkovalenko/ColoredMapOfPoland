@@ -34,44 +34,41 @@ namespace Model
 
             points.Add(new DB(startX, startY));
 
+            int startIndex = 0;
+
             while (true)
             {
                 int iterations = points.Count;
-                for (int it = 0; it < iterations; it++)
+                for (int it = startIndex; it < iterations; it++)
                 {
                     DB point = points[it];
 
-                    if (point.finished == false)
-                    {
+                    //if (point.finished == false)
+                    //{
                         foreach(int[] direction in directions)
                         {
                             DB neighbor = new DB(point.X + direction[0], point.Y + direction[1]);
                             Color neighborColor = bmp.GetColorOfPoint(neighbor.X, neighbor.Y);
 
-                            //sb.Append(neighborColor + "\r\n");
-                            if(points.Contains(neighbor))
+                            if (neighborColor.R == 224 && neighborColor.G == 224 && neighborColor.B == 224)
                             {
-                            }
-                            else if (neighborColor.R == 255 && neighborColor.G == 255 && neighborColor.B == 255)
-                            {
-                            }
-                            else if (neighborColor.R == 0 && neighborColor.G == 0 && neighborColor.B == 0)
-                            {
-                            }
-                            else
+                                bmp.SetPixel(neighbor.X, neighbor.Y);
                                 points.Add(neighbor);
+                            }
                         }
 
-                        point.finished = true;
-                    } 
+                        //point.finished = true;
+                    //} 
                 }
                 if (points.Count == iterations)
                     break;
+
+                startIndex = iterations - 1;
             }
 
             stopwatch.Stop();
 
-            System.IO.File.WriteAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString());
+            System.IO.File.AppendAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString() + "\r\n");
 
             return points;
         }

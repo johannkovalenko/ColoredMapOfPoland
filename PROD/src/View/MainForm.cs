@@ -38,7 +38,7 @@ class MainForm : Form
         button.Click += delegate(object sender, EventArgs e) 
         { 
             //analysis.Run(sender, e, painter, pictureBox, points, bmp); 
-            points = analysis.Run(700, 550);
+            points = analysis.Run(1100, 550);
             pictureBox.Refresh();
         };  
 
