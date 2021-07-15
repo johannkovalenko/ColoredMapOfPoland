@@ -7,7 +7,7 @@ namespace Model
 {
     public class Analysis
     {
-        private BMP bmp;
+        private Bitmap bmp;
         private Color grey = Color.FromArgb(224, 224, 224);
         private Color white = Color.White;
         private Color black = Color.Black;
@@ -19,12 +19,12 @@ namespace Model
         };
 
 
-        public Analysis(BMP bmp)
+        public Analysis(Bitmap bmp)
         {
             this.bmp = bmp;
         }
 
-        public List<DB> Run(int startX, int startY)
+        public void Run(int startX, int startY, Color color)
         {
             var stopwatch = new Stopwatch();
 
@@ -43,22 +43,17 @@ namespace Model
                 {
                     DB point = points[it];
 
-                    //if (point.finished == false)
-                    //{
-                        foreach(int[] direction in directions)
+                    foreach(int[] direction in directions)
+                    {
+                        DB neighbor = new DB(point.X + direction[0], point.Y + direction[1]);
+                        Color neighborColor = bmp.GetPixel(neighbor.X, neighbor.Y);
+
+                        if (neighborColor.R == 224 && neighborColor.G == 224 && neighborColor.B == 224)
                         {
-                            DB neighbor = new DB(point.X + direction[0], point.Y + direction[1]);
-                            Color neighborColor = bmp.GetColorOfPoint(neighbor.X, neighbor.Y);
-
-                            if (neighborColor.R == 224 && neighborColor.G == 224 && neighborColor.B == 224)
-                            {
-                                bmp.SetPixel(neighbor.X, neighbor.Y);
-                                points.Add(neighbor);
-                            }
+                            bmp.SetPixel(neighbor.X, neighbor.Y, color);
+                            points.Add(neighbor);
                         }
-
-                        //point.finished = true;
-                    //} 
+                    }
                 }
                 if (points.Count == iterations)
                     break;
@@ -69,8 +64,6 @@ namespace Model
             stopwatch.Stop();
 
             System.IO.File.AppendAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString() + "\r\n");
-
-            return points;
         }
     }
 }
