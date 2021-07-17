@@ -19,7 +19,7 @@ namespace Model
         };
 
 
-        public Analysis(Bitmap bmp)
+        public void UpdateBMP(Bitmap bmp)
         {
             this.bmp = bmp;
         }
@@ -63,7 +63,7 @@ namespace Model
 
             stopwatch.Stop();
 
-            System.IO.File.AppendAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString() + "\r\n");
+            //System.IO.File.AppendAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString() + "\r\n");
         }
     }
 }
