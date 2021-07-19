@@ -7,7 +7,7 @@ namespace Model
 {
     public class Analysis
     {
-        private Bitmap bmp;
+        private I_BMP bmp;
         private Color grey = Color.FromArgb(224, 224, 224);
         private Color white = Color.White;
         private Color black = Color.Black;
@@ -19,7 +19,7 @@ namespace Model
         };
 
 
-        public void UpdateBMP(Bitmap bmp)
+        public void UpdateBMP(I_BMP bmp)
         {
             this.bmp = bmp;
         }

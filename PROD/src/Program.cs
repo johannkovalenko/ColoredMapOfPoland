@@ -13,14 +13,14 @@ static class Program
 
         foreach (string file in Directory.GetFiles("..\\input"))
         { 
-            var bmp = new Bitmap(@"powiaty_wzór.png");
+            Model.I_BMP bmp = new Model.BMP_Prod();
             analysis.UpdateBMP(bmp);
             
             Model.I_InputData inputData = strategies.Get(file);
             Dictionary<string, Color> data = inputData.Run(file);
             Fill_Prod(data, powiaty, analysis, inputData);
-            bmp.Save(@"..\output\" + Path.GetFileNameWithoutExtension(file) + ".png", ImageFormat.Png);
-            bmp.Dispose();
+
+            bmp.Save(file);
         }
 
     }
