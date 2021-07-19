@@ -6,8 +6,9 @@ namespace Model
 {
     public class InputDataRGB : I_InputData
     {
-        public override void Run(string file)
+        public override Dictionary<string, Color> Run(string file)
         {
+            var data = new Dictionary<string, Color>();
             string[] lines = File.ReadAllLines(file);
 
             foreach (string line in lines)
@@ -24,6 +25,9 @@ namespace Model
                 int b = int.Parse(split[4]);
                 data[powiat] = Color.FromArgb(r, g, b);
             }
+
+            return data;
+
         }
 
 

@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Collections.Generic;
 
 static class Program
 {
@@ -11,14 +12,13 @@ static class Program
         var strategies = new Model.Strategies();
 
         foreach (string file in Directory.GetFiles("..\\input"))
-        {
-              
+        { 
             var bmp = new Bitmap(@"powiaty_wzór.png");
             analysis.UpdateBMP(bmp);
             
             Model.I_InputData inputData = strategies.Get(file);
-            inputData.Run(file);
-            Fill_Prod(powiaty, analysis, inputData);
+            Dictionary<string, Color> data = inputData.Run(file);
+            Fill_Prod(data, powiaty, analysis, inputData);
             bmp.Save(@"..\output\" + Path.GetFileNameWithoutExtension(file) + ".png", ImageFormat.Png);
             bmp.Dispose();
         }
@@ -32,14 +32,14 @@ static class Program
                 analysis.Run(point.X, point.Y, Color.Red);
     }
 
-    private static void Fill_Prod(Model.Powiaty powiaty, Model.Analysis analysis, Model.I_InputData inputData)
+    private static void Fill_Prod(Dictionary<string, Color> data, Model.Powiaty powiaty, Model.Analysis analysis, Model.I_InputData inputData)
     {
         var sb = new System.Text.StringBuilder();
 
-        foreach (string powiat in inputData.data.Keys)
+        foreach (string powiat in data.Keys)
             if (powiaty.coordinates.ContainsKey(powiat))
                 foreach (Point point in powiaty.coordinates[powiat])
-                    analysis.Run(point.X, point.Y, inputData.data[powiat]);
+                    analysis.Run(point.X, point.Y, data[powiat]);
             else 
                 sb.Append(powiat + "\r\n");
     

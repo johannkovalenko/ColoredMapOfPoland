@@ -6,8 +6,9 @@ namespace Model
 {
     public class InputDataValue : I_InputData
     {
-        public override void Run(string file)
+        public override Dictionary<string, Color> Run(string file)
         {
+            var data = new Dictionary<string, Color>();
             string[] lines = File.ReadAllLines(file);
 
             foreach (string line in lines)
@@ -23,6 +24,8 @@ namespace Model
                 if (value >= 50)
                     data[powiat] = GetColor(value);
             }
+            
+            return data;
         }
 
         private Color GetColor(int value)

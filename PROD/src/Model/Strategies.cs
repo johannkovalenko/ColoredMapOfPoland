@@ -10,7 +10,8 @@ namespace Model
         {
             {"total_percent_2_10_20_30",    new InputDataTotalPercent()},
             {"total_50_100_200_500",        new InputDataValue()},
-            {"rgb",                         new InputDataRGB()}
+            {"rgb",                         new InputDataRGB()},
+            {"perthousand",                 new InputDataPerThousand()}
         };
 
         public I_InputData Get(string file)

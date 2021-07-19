@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Model
 {
-    public class InputDataTotalPercent : I_InputData
+    public class InputDataPerThousand : I_InputData
     {
         public override Dictionary<string, Color> Run(string file)
         {
@@ -17,28 +17,29 @@ namespace Model
 
                 string wojewodztwo  = split[0];
                 string powiat       = split[1];
-                int total           = int.Parse(split[2]);
-                int percent         = int.Parse(split[3]);
+                float value           = float.Parse(split[2]);
                 
                 powiat = Duplicates(wojewodztwo, powiat);
 
-                if (total > 1 && percent > 1)
-                    data[powiat] = GetColor(percent);
+                //if (value >= 1.0)
+                    data[powiat] = GetColor(value);
             }
-
+            
             return data;
         }
 
-        private Color GetColor(int percent)
+        private Color GetColor(double value)
         {
-            if (percent >= 30)
+            if (value >= 5)
                 return base.darkGreen;
-            else if (percent >= 20)
+            else if (value >= 0.5)
                 return base.green;
-            else if (percent >= 10)
+            else if (value >= -0.5)
                 return base.yellow;
+            else if (value >= -5)
+                return base.darkPink;
             else
-                return base.turquois;
+                return base.red;
         }
     }
 }

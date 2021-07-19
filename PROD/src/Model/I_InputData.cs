@@ -5,14 +5,19 @@ namespace Model
 {
     public abstract class I_InputData
     {
-        public abstract void Run(string file);
-
-        public Dictionary<string, Color> data = new Dictionary<string, Color>();
+        public abstract Dictionary<string, Color> Run(string file);
 
         protected Color darkGreen  = Color.FromArgb(34, 177, 76);
         protected Color green      = Color.FromArgb(0, 255, 0);
         protected Color yellow     = Color.FromArgb(255, 255, 0);
         protected Color turquois   = Color.FromArgb(0, 255, 255);
+
+        protected Color darkPink    = Color.FromArgb(255, 0, 128);
+        protected Color pink        = Color.FromArgb(255, 0, 255);
+        protected Color rose        = Color.FromArgb(255, 128, 192);
+        protected Color lightRose   = Color.FromArgb(255, 128, 255);
+
+        protected Color red         = Color.FromArgb(255, 0, 0);
         
         protected string Duplicates(string wojewodztwo, string powiat)
         {
