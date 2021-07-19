@@ -26,9 +26,7 @@ namespace Model
 
         public void Run(int startX, int startY, Color color)
         {
-            var stopwatch = new Stopwatch();
 
-            stopwatch.Start();
 
             var points = new List<DB>();
 
@@ -60,10 +58,6 @@ namespace Model
 
                 startIndex = iterations - 1;
             }
-
-            stopwatch.Stop();
-
-            //System.IO.File.AppendAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString() + "\r\n");
         }
     }
 }

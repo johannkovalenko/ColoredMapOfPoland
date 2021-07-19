@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 static class Program
 {
@@ -13,7 +14,10 @@ static class Program
 
         foreach (string file in Directory.GetFiles("..\\input"))
         { 
-            Model.I_BMP bmp = new Model.BMP_Prod();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Model.I_BMP bmp = new Model.BMP_Test();
             analysis.UpdateBMP(bmp);
             
             Model.I_InputData inputData = strategies.Get(file);
@@ -21,6 +25,10 @@ static class Program
             Fill_Prod(data, powiaty, analysis, inputData);
 
             bmp.Save(file);
+
+            stopwatch.Stop();
+
+            File.AppendAllText("debug.txt", stopwatch.Elapsed.TotalMilliseconds.ToString() + "\r\n");
         }
 
     }
